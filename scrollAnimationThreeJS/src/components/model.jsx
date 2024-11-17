@@ -2,7 +2,6 @@ import React, { useLayoutEffect, useRef } from 'react'
 import { OrbitControls, useGLTF, useScroll } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber';
 import gsap from 'gsap';
-import { DynamicReadUsage } from 'three';
 
 export function Model(props) {
     const { nodes, materials } = useGLTF('/models/Artics.glb');
@@ -13,6 +12,12 @@ export function Model(props) {
 
     // meshes ref
     const generalGroupRef = useRef(); //Creamos dentro de la etiqueta group un ref={generalGroupRef}, para poder referenciarlo aqui con el useRef
+    const coverLeftRef = useRef(); // Referencia para el modelo 3D de la bateria
+    const rightCoverRef = useRef(); // Referencia para el modelo 3D de la tapa derecha
+    const rightCoverInnerRef = useRef(); // Referencia para el modelo 3D de la tapa interior
+    const inside1Ref = useRef(); // Referencia para el modelo 3D de los componentes internos
+    const inside2Ref = useRef(); // Referencia para el modelo 3D de los componentes internos
+    const controls = useRef(); // Referencia para los orbitsControls
 
     // Creamos el timeline al montar el componente
     useLayoutEffect(() => {
@@ -25,7 +30,7 @@ export function Model(props) {
         --------------------------------------------------------------------------
         Inicio de animación |	Desde el estado actual en el DOM  |  Desde los valores especificados
         ----------------------------------------------------------------------------------------------------------------------------
-        Fin de animación	|   En los valores especificados	  |En el estado actual en el DOM
+        Fin de animación	|   En los valores especificados	  |  En el estado actual en el DOM
         ----------------------------------------------------------------------------------------------------------------------------
         Uso típico	        |   Mover o transformar elementos     |
                             |   hacia un estado deseado           | Crear efectos de entrada o animaciones iniciales
@@ -76,6 +81,7 @@ export function Model(props) {
         receiveShadow
         geometry={nodes.Cover_Right.geometry}
         material={materials.ArticsMaterial}
+        ref={rightCoverRef} /* Las referencia para poder animarlo en un futuro */
       />
       <mesh
         name="Headband_Inner"
@@ -105,6 +111,7 @@ export function Model(props) {
         geometry={nodes.Inside_1.geometry}
         material={materials.Blue_Metallic}
         position={[0.01, 0, 0]}
+        ref={inside1Ref} /* Las referencia para poder animarlo en un futuro */
       />
       <mesh
         name="Inside_2"
@@ -113,6 +120,7 @@ export function Model(props) {
         geometry={nodes.Inside_2.geometry}
         material={materials.Orage_Mertallic}
         position={[0.011, 0, 0]}
+        ref={inside2Ref} /* Las referencia para poder animarlo en un futuro */
       />
       <mesh
         name="Headband_outter"
@@ -144,12 +152,13 @@ export function Model(props) {
         material={materials.ArticsMaterial}
         position={[0, 0.006, 0]}
       />
-      <mesh
+      <mesh 
         name="Cover_Left"
         castShadow
         receiveShadow
         geometry={nodes.Cover_Left.geometry}
         material={materials.ArticsMaterial_CoverLeft}
+        ref={coverLeftRef} /* Las referencia para poder animarlo en un futuro */
       />
       <mesh
         name="Cover_Right_Inn"
@@ -158,6 +167,7 @@ export function Model(props) {
         geometry={nodes.Cover_Right_Inn.geometry}
         material={materials.ArticsMaterial}
         position={[0, 0.006, 0]}
+        ref={rightCoverInnerRef} /* Las referencia para poder animarlo en un futuro */
       />
       <mesh
         name="Sounds"
@@ -168,7 +178,7 @@ export function Model(props) {
         rotation={[0, 0, 0.004]}
       />
     </group>
-    <OrbitControls/>
+    <OrbitControls enableZoom={false}/> {/* Deshabilito la posibilidad de que el usuario haga zoom al objeto     */}
     </>
   )
 }
