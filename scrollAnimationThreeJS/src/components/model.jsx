@@ -273,7 +273,14 @@ export function Model(props) {
         rotation={[0, 0, 0.004]}
       />
     </group>
-    <OrbitControls enableZoom={false} ref={controls}/> {/* Deshabilito la posibilidad de que el usuario haga zoom al objeto     */}
+    <OrbitControls enableZoom={false}
+        ref={controls}
+        enablePan={false}
+        minAzimuthAngle={-Math.PI / 12}
+        maxAzimuthAngle={Math.PI / 12}
+        minPolarAngle={Math.PI * 0.3}
+        maxPolarAngle={Math.PI * 0.35}
+    /> {/* Deshabilito la posibilidad de que el usuario haga zoom al objeto     */}
     </>
   )
 }
