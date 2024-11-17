@@ -62,13 +62,60 @@ export function Model(props) {
 
         AnimationsData = [...AnimationsData, ...HeadbandAnimations] // haciendo esto estamos cargando todo lo que hay en HeadBandAnimation en AnimationsData
 
+        const SoundControlsAnimations = [
+             // Controls, Camera, Camera Zoom
+             {
+                objectToAnimate: controls.current.target, // El modelo que vamos a manipular
+                properties: { // Que modificamos
+                    y: -1.5761,
+                    x: -1.3143,
+                    z: 0,
+                    duration: 0.8,
+                },
+                timelinePoint: 2, // Cuando termina
+            },
+            {
+                objectToAnimate: camera.position,
+                properties: {
+                    x: 0,
+                    y: 0,
+                    z: 8.3,
+                    duration: 0.8,
+                },
+                timelinePoint: 2,
+            },
+            {
+                objectToAnimate: camera,
+                properties: {
+                    zoom: 2,
+                    duration: 0.3,
+                    onUpdate: () => {
+                        camera.updateProjectionMatrix(); // Ha medida que se va actualizando la animacion, hay que ir acttualizando la matriz de proyeccion, obligatorio
+                    }
+                },
+                timelinePoint: 2.3,
+            },
+            {
+                objectToAnimate: generalGroupRef.current.rotation,
+                properties: {
+                    x: -0.38311,
+                    y: 0.16447,
+                    z: -0.1356,
+                    duration: 0.8,
+                },
+                timelinePoint: 2.1,
+            },
+        ];
+
+        AnimationsData = [...AnimationsData, ...SoundControlsAnimations] // haciendo esto estamos cargando todo lo que hay en HeadBandAnimation en AnimationsData
+
         AnimationsData.map((animation) => {
             timeline.current.to(
-            animation.objectToAnimate,
+            animation.objectToAnimate, // Llamando a la en la posicion del array que toque a la propiedad del objeto objectToAnimate
             {
-                ...animation.properties,
+                ...animation.properties, // Llamando a la en la posicion del array que toque a las propiedades del objeto en properties
             },
-            animation.timelinePoint
+            animation.timelinePoint // Llamando a la en la posicion del array que toque a la propiedad del objeto timelinePoint
             );
         });
 
