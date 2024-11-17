@@ -1,11 +1,54 @@
-import React, { useRef } from 'react'
-import { OrbitControls, useGLTF } from '@react-three/drei'
+import React, { useLayoutEffect, useRef } from 'react'
+import { OrbitControls, useGLTF, useScroll } from '@react-three/drei'
+import { useFrame } from '@react-three/fiber';
+import gsap from 'gsap';
+import { DynamicReadUsage } from 'three';
 
 export function Model(props) {
-  const { nodes, materials } = useGLTF('/models/Artics.glb')
+    const { nodes, materials } = useGLTF('/models/Artics.glb');
+
+    const scrollControl = useScroll(); // Para extraer la posicion actual del scroll y nos ayudara con las animaciones
+    // Creamos una referencia mutable para almacenar la instancia del timeline de GSAP
+    const timeline = useRef();
+
+    // meshes ref
+    const generalGroupRef = useRef(); //Creamos dentro de la etiqueta group un ref={generalGroupRef}, para poder referenciarlo aqui con el useRef
+
+    // Creamos el timeline al montar el componente
+    useLayoutEffect(() => {
+        // Inicializamos el timeline de GSAP y lo asignamos a la referencia
+        timeline.current = gsap.timeline();
+
+        // Esto se encarga de realizar la animacion y hay dos tipos tipos el from y el to
+        /*
+        Propiedad	        |   to()	                          |  from()
+        --------------------------------------------------------------------------
+        Inicio de animación |	Desde el estado actual en el DOM  |  Desde los valores especificados
+        ----------------------------------------------------------------------------------------------------------------------------
+        Fin de animación	|   En los valores especificados	  |En el estado actual en el DOM
+        ----------------------------------------------------------------------------------------------------------------------------
+        Uso típico	        |   Mover o transformar elementos     |
+                            |   hacia un estado deseado           | Crear efectos de entrada o animaciones iniciales
+        */
+        timeline.current.to(
+            generalGroupRef.current.rotation, {
+                y: Math.PI * 2, // Animacion
+                duration: 3, //Duracion
+            }, //La animacion que va a realizar
+            5.5 //A los 5 segundos de estar en la pagina se reproduce la animacion
+        )
+
+    }, []); // Este efecto solo se ejecutará una vez, al montar el componente
+
+    /* QUEREMOS QUE LA PÁGINA REALICE LA ANIMACION EN UNA ZONA CONCRETA ENTONCES TIMELINE NOS DA UN METODO CONCRETO PARA PODER SABER DONDE NOS ENCONTRAMOS, PARA ELLOS USAMOS USEFRAME QUE SE EJECUTA EN CADA FRAME (FRAME COMO UNIDAD DE TIEMPO ESTAMOS HABLANDO)*/
+    useFrame( () => {
+        timeline.current.seek(scrollControl.offset * timeline.current.duration()); //Nos permite reproducir la linea de tiempo a partir de un segundo en específico, refiriendose como que al estar en una x zona, se ejecute la animacion
+        //Pongo 8.5 porque es la summa de la duracion + el segundo valor que es cuando empieza la animacion (antes)
+        // En vez de hacer lo anteriores debemos pasar por segundo parámetro un método que hace la suma anterior que es timeline.current.duration()
+    }) 
   return (
     <>
-    <group {...props} dispose={null}>
+    <group {...props} dispose={null} ref={generalGroupRef}>
       <mesh
         name="Cylinders"
         castShadow

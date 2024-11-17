@@ -30,6 +30,8 @@ const Scene = () => {
     pages{"numero de páginas"} => Este valor se refiere a cuentas "páginas" o "animaciones" va a tener el modelo 3D, como si se refiriese a secciones, pero en este caso a cuantas animaciones separadas tendrá
 
     damping{"valor de suavidad de la animacion"} => Este valor se refiere a la suavidad de fade in y fade out que tendrá al finalizar la animación, por lo general se pone 0.25
+
+    Es importante tener en cuenta que que hay que usar el useScroll dentro del modelo 3d para poder crear las animaciones del ScrollControls 
   */
 }
 
