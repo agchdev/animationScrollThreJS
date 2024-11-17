@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useRef } from 'react'
 import { OrbitControls, useGLTF, useScroll } from '@react-three/drei'
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 import gsap from 'gsap';
 
 export function Model(props) {
@@ -18,11 +18,59 @@ export function Model(props) {
     const inside1Ref = useRef(); // Referencia para el modelo 3D de los componentes internos
     const inside2Ref = useRef(); // Referencia para el modelo 3D de los componentes internos
     const controls = useRef(); // Referencia para los orbitsControls
+    const camera = useThree((state) => state.camera); // Para hacer una referencia de la camara que esta en la escena desde el model.jsx 
 
     // Creamos el timeline al montar el componente
     useLayoutEffect(() => {
         // Inicializamos el timeline de GSAP y lo asignamos a la referencia
         timeline.current = gsap.timeline();
+
+        let AnimationsData = []; // Nos va a permitir almacenar las diferentes animacions que voy a ir haciendo
+        const HeadbandAnimations = [
+            // Controls, Camera, Camera Zoom
+            {
+                objectToAnimate: controls.current.target, // El modelo que vamos a manipular
+                properties: { // Que modificamos
+                    y: 3.0974,
+                    x: 0,
+                    z: 0,
+                },
+                timelinePoint: 0.8, // Cuando termina
+            },
+            {
+                objectToAnimate: camera.position,
+                properties: {
+                    x: 0,
+                    y: 6.6097,
+                    z: 8.3,
+                    duration: 0.8,
+                },
+                timelinePoint: 1,
+            },
+            {
+                objectToAnimate: camera,
+                properties: {
+                    zoom: 2.5,
+                    duration: 0.8,
+                    onUpdate: () => {
+                        camera.updateProjectionMatrix(); // Ha medida que se va actualizando la animacion, hay que ir acttualizando la matriz de proyeccion, obligatorio
+                    }
+                },
+                timelinePoint: 1,
+            }
+        ]
+
+        AnimationsData = [...AnimationsData, ...HeadbandAnimations] // haciendo esto estamos cargando todo lo que hay en HeadBandAnimation en AnimationsData
+
+        AnimationsData.map((animation) => {
+            timeline.current.to(
+            animation.objectToAnimate,
+            {
+                ...animation.properties,
+            },
+            animation.timelinePoint
+            );
+        });
 
         // Esto se encarga de realizar la animacion y hay dos tipos tipos el from y el to
         /*
@@ -178,7 +226,7 @@ export function Model(props) {
         rotation={[0, 0, 0.004]}
       />
     </group>
-    <OrbitControls enableZoom={false}/> {/* Deshabilito la posibilidad de que el usuario haga zoom al objeto     */}
+    <OrbitControls enableZoom={false} ref={controls}/> {/* Deshabilito la posibilidad de que el usuario haga zoom al objeto     */}
     </>
   )
 }
