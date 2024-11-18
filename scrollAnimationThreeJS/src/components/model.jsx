@@ -45,6 +45,26 @@ export function Model(props) {
 
     let AnimationsData = []; // Nos va a permitir almacenar las diferentes animacions que voy a ir haciendo
     const HeadbandAnimations = [
+      {
+        //Html div
+        // Restore previous animations
+        objectToAnimate: page_1_ref.current,
+        properties: {
+          opacity: 0,
+          duration: 0.3,
+        },
+        timelinePoint: 0.5,
+      },
+      {
+        //Html div
+        // Restore previous animations
+        objectToAnimate: page_2_ref.current,
+        properties: {
+          opacity: 1,
+          duration: 0.8,
+        },
+        timelinePoint: 1.3,
+      },
       // Controls, Camera, Camera Zoom
       {
         objectToAnimate: controls.current.target, // El modelo que vamos a manipular
