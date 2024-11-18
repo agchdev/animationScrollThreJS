@@ -101,6 +101,26 @@ export function Model(props) {
     AnimationsData = [...AnimationsData, ...HeadbandAnimations] // haciendo esto estamos cargando todo lo que hay en HeadBandAnimation en AnimationsData
 
     const SoundControlsAnimations = [
+      {
+        //Html div
+        // Restore previous animations
+        objectToAnimate: page_2_ref.current,
+        properties: {
+          opacity: 0,
+          duration: 0.3,
+        },
+        timelinePoint: 2.1,
+      },
+      {
+        //Html div
+        // Restore previous animations
+        objectToAnimate: page_3_ref.current,
+        properties: {
+          opacity: 1,
+          duration: 0.3,
+        },
+        timelinePoint: 2.3,
+      },
       // Controls, Camera, Camera Zoom
       {
         objectToAnimate: controls.current.target, // El modelo que vamos a manipular
@@ -148,6 +168,26 @@ export function Model(props) {
     AnimationsData = [...AnimationsData, ...SoundControlsAnimations]; // haciendo esto estamos cargando todo lo que hay en HeadBandAnimation en AnimationsData
 
     const BatteryAnimations = [
+      {
+        //Html div
+        // Restore previous animations
+        objectToAnimate: page_3_ref.current,
+        properties: {
+          opacity: 0,
+          duration: 0.3,
+        },
+        timelinePoint: 3.2,
+      },
+      {
+        //Html div
+        // Restore previous animations
+        objectToAnimate: page_4_ref.current,
+        properties: {
+          opacity: 1,
+          duration: 0.3,
+        },
+        timelinePoint: 3.3,
+      },
       // Controls, Camera, Camera Zoom
       {
         objectToAnimate: controls.current.target, // El modelo que vamos a manipular
