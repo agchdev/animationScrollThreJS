@@ -20,6 +20,24 @@ export function Model(props) {
   const controls = useRef(); // Referencia para los orbitsControls
   const camera = useThree((state) => state.camera); // Para hacer una referencia de la camara que esta en la escena desde el model.jsx 
 
+  // Html div references
+  // Estas van a ser referencias de los labels.jsx para ir mostrandolas según la posición de la página en la que me encuentre
+  const page_1_ref = useRef();
+  const page_2_ref = useRef();
+  const page_3_ref = useRef();
+  const page_4_ref = useRef();
+  const page_5_ref = useRef();
+  const page_6_ref = useRef();
+
+  useLayoutEffect(() => {
+    page_1_ref.current = document.getElementById("page-1");
+    page_2_ref.current = document.getElementById("page-2");
+    page_3_ref.current = document.getElementById("page-3");
+    page_4_ref.current = document.getElementById("page-4");
+    page_5_ref.current = document.getElementById("page-5");
+    page_6_ref.current = document.getElementById("page-6");
+  })
+
   // Creamos el timeline al montar el componente
   useLayoutEffect(() => {
     // Inicializamos el timeline de GSAP y lo asignamos a la referencia
