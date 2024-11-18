@@ -364,6 +364,26 @@ export function Model(props) {
     AnimationsData = [...AnimationsData, ...ConstructionAnimations]; // haciendo esto estamos cargando todo lo que hay en HeadBandAnimation en ConstructionAnimations
 
     const BrandLogoAnimations = [
+      {
+        //Html div
+        // Restore previous animations
+        objectToAnimate: page_5_ref.current,
+        properties: {
+          opacity: 0,
+          duration: 0.3,
+        },
+        timelinePoint: 5.8,
+      },
+      {
+        //Html div
+        // Restore previous animations
+        objectToAnimate: page_6_ref.current,
+        properties: {
+          opacity: 1,
+          duration: 0.8,
+        },
+        timelinePoint: 6.2,
+      },
       //  Restore previous animations
       {
         objectToAnimate: rightCoverRef.current.position,
