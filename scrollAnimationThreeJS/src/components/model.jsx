@@ -337,7 +337,7 @@ export function Model(props) {
           z: 0,
           duration: 0.8,
         },
-        timelinePoint: 4.3,
+        timelinePoint: 4.8,
       },
       {
         objectToAnimate: inside1Ref.current.position,
