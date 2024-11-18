@@ -245,6 +245,26 @@ export function Model(props) {
     AnimationsData = [...AnimationsData, ...BatteryAnimations]; // haciendo esto estamos cargando todo lo que hay en HeadBandAnimation en BatteryAnimations
 
     const ConstructionAnimations = [
+      {
+        //Html div
+        // Restore previous animations
+        objectToAnimate: page_4_ref.current,
+        properties: {
+          opacity: 0,
+          duration: 0.3,
+        },
+        timelinePoint: 4.1,
+      },
+      {
+        //Html div
+        // Restore previous animations
+        objectToAnimate: page_5_ref.current,
+        properties: {
+          opacity: 1,
+          duration: 0.8,
+        },
+        timelinePoint: 4.6,
+      },
       // Restore previous animation
       {
         objectToAnimate: coverLeftRef.current.material,
