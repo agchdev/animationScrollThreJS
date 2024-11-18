@@ -167,6 +167,16 @@ export function Model(props) {
     AnimationsData = [...AnimationsData, ...BatteryAnimations]; // haciendo esto estamos cargando todo lo que hay en HeadBandAnimation en BatteryAnimations
 
     const ConstructionAnimations = [
+      // Restore previous animation
+      {
+        objectToAnimate: coverLeftRef.current.material,
+        properties: {
+          opacity: 1,
+          transparent: false,
+          duration: 0.8,
+        },
+        timelinePoint: 4.3,
+      },
       // Controls, Camera, Camera Zoom
       {
         objectToAnimate: controls.current.target, // El modelo que vamos a manipular
@@ -256,6 +266,47 @@ export function Model(props) {
     AnimationsData = [...AnimationsData, ...ConstructionAnimations]; // haciendo esto estamos cargando todo lo que hay en HeadBandAnimation en ConstructionAnimations
 
     const BrandLogoAnimations = [
+      //  Restore previous animations
+      {
+        objectToAnimate: rightCoverRef.current.position,
+        properties: {
+          x: 0,
+          y: 0,
+          z: 0,
+          duration: 0.8,
+        },
+        timelinePoint: 5.6,
+      },
+      {
+        objectToAnimate: rightCoverInnerRef.current.position,
+        properties: {
+          x: 0,
+          y: 0,
+          z: 0,
+          duration: 0.8,
+        },
+        timelinePoint: 5.6,
+      },
+      {
+        objectToAnimate: inside1Ref.current.position,
+        properties: {
+          x: 0,
+          y: 0,
+          z: 0,
+          duration: 0.8,
+        },
+        timelinePoint: 5.6,
+      },
+      {
+        objectToAnimate: inside2Ref.current.position,
+        properties: {
+          x: 0,
+          y: 0,
+          z: 0,
+          duration: 0.8,
+        },
+        timelinePoint: 5.6,
+      },
       // Controls, Camera, Camera Zoom
       {
         objectToAnimate: controls.current.target, // El modelo que vamos a manipular
